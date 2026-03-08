@@ -12,7 +12,7 @@ import textwrap
 
 # ── STEP 2: Configure your API Key ────────────────────────────
 # Paste your Gemini API key below 👇
-API_KEY = "AIzaSyDTIuozum8gLZrlX8BNlKn4PLs-pkKSr-s"
+API_KEY = "key"
 
 genai.configure(api_key=API_KEY)
 
