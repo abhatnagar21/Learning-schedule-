@@ -1,24 +1,13 @@
-# ============================================================
-# 🎓 PERSONALIZED LEARNING PATH GENERATOR
-# Powered by Google Gemini Flash 2.0 Preview
-# Ready to run on Google Colab
-# ============================================================
-
-# ── STEP 1: Install dependencies ──────────────────────────────
-# !pip install google-generativeai -q
 
 import google.generativeai as genai
 import textwrap
-
-# ── STEP 2: Configure your API Key ────────────────────────────
-# Paste your Gemini API key below 👇
 API_KEY = "key"
 
 genai.configure(api_key=API_KEY)
 
-# ── STEP 3: Set up the model ───────────────────────────────────
+
 model = genai.GenerativeModel(
-    model_name="gemini-3-flash-preview",   # Gemini Flash 2.0 Preview
+    model_name="gemini-3-flash-preview",  
     generation_config={
         "temperature": 0.8,
         "top_p": 0.95,
@@ -26,21 +15,7 @@ model = genai.GenerativeModel(
     }
 )
 
-# ── STEP 4: Core function ──────────────────────────────────────
 def generate_learning_path(skill: str, level: str, goal: str, hours_per_week: int) -> str:
-    """
-    Generate a personalized week-by-week learning curriculum.
-
-    Args:
-        skill          : The skill to learn (e.g., "Machine Learning", "React")
-        level          : Current level — Beginner / Intermediate / Advanced
-        goal           : What you want to achieve (e.g., "get a job", "build a project")
-        hours_per_week : How many hours per week you can dedicate
-
-    Returns:
-        A formatted learning path string
-    """
-
     prompt = f"""
 You are an expert curriculum designer and career coach.
 
@@ -74,21 +49,17 @@ Begin the learning path now:
     response = model.generate_content(prompt)
     return response.text
 
-
-# ── STEP 5: Pretty printer ─────────────────────────────────────
 def print_learning_path(text: str):
-    """Wrap and print the learning path nicely in Colab."""
+   
     for line in text.split("\n"):
-        # Preserve empty lines
+        
         if line.strip() == "":
             print()
         else:
-            # Wrap long lines at 80 chars
+           
             wrapped = textwrap.fill(line, width=80, subsequent_indent="   ")
             print(wrapped)
 
-
-# ── STEP 6: Interactive input ──────────────────────────────────
 def main():
     print("=" * 65)
     print("  🎓 PERSONALIZED LEARNING PATH GENERATOR")
@@ -116,13 +87,13 @@ def main():
         hours_per_week = 5
         print("   (Defaulting to 5 hours/week)")
 
-    # Generate the plan
+    
     result = generate_learning_path(skill, level, goal, hours_per_week)
 
-    # Print it out
+   
     print_learning_path(result)
 
-    # ── STEP 7: Save to file ───────────────────────────────────
+   
     safe_skill = skill.replace(" ", "_").lower()
     filename = f"learning_path_{safe_skill}.txt"
 
@@ -137,6 +108,6 @@ def main():
     print("=" * 65)
 
 
-# ── Run it ──────────────────────────────────────────────────────
+
 if __name__ == "__main__":
     main()
